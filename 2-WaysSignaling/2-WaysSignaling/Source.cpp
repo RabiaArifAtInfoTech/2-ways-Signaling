@@ -11,33 +11,32 @@
 //
 //class Sender {
 //
-//	std::vector<std::string> message;
+//	//std::vector<std::string> message;
 //	boost::signals2::signal<void(std::vector<std::string>)> signalMessages;
-//
+//	std::string msg;
 //public:
-//	Sender(std::vector<std::string> msgs) {
+//	//Sender(std::vector<std::string> msgs) {
+//	Sender(std::string message) {
 //		cout << "\ninside Sender class\n";
-//		message = msgs;
-//		for (int i = 0; i < msgs.size(); i++)
+//		msg = message;
+//	/*	for (int i = 0; i < msgs.size(); i++)
 //			message.push_back(msgs[i]);
-//		
+//		*/
 //
-//		int initialSize = message.size();
-//		int tempSize = message.size();
+//		/*int initialSize = message.size();
+//		int tempSize = message.size();*/
 //
 //		cout << message[0];
-//		signalMessages.connect(message[0]);
+//		//signalMessages.connect(message[0]);
 //		/*if (tempSize == initialSize)
 //		{
 //
 //		}*/
+//		this->send(msg);
 //	}
-//	void send()
+//	void send(std::string message)
 //	{
-//		int initialSize = message.size();
-//		int tempSize = message.size();
-//
-//		//if()
+//		Receiver(message);
 //	}
 //	void wait() {
 //
@@ -47,33 +46,39 @@
 //	}
 //};
 //
-////class Receiver {
-////	//std::thread t2();
-////	boost::signals2::signal<string()> signal2;
-////	std::vector<std::string> message;
-////	int countOfReceivedMsgs;
-////public:
-////	Receiver() {
-////
-////	}
-////	void receive(std::string msg) {
-////		message.push_back(msg);
-////		countOfReceivedMsgs++;
-////		this->signal();
-////	}
-////	void run()
-////	{
-////		//std::thread t1();
-////	}
-////	void wait() {
-////
-////	}
-////	void signal() {
-////
-////	}
-////	void display(){
-////	}
-////};
+//class Receiver {
+//	//std::thread t2();
+//	//boost::signals2::signal<string()> signal2;
+//	//std::vector<std::string> message;
+//	//int countOfReceivedMsgs;
+//	std::string msg;
+//
+//public:
+//	Receiver(std::string message) {
+//
+//	}
+//	void receive(std::string msg) {
+//		/*message.push_back(msg);
+//		countOfReceivedMsgs++;
+//		*/
+//		//this->signal();
+//		/*	message.push_back(msg);
+//		countOfReceivedMsgs++;
+//		this->signal();*/
+//	}
+//	void run()
+//	{
+//		//std::thread t1();
+//	}
+//	void wait() {
+//
+//	}
+//	void signalBack() {
+//
+//	}
+//	void display(){
+//	}
+//};
 //
 ////void thread2() {
 ////	//.std::thread t2();
@@ -83,14 +88,16 @@
 //int main()
 //{
 //
-//	std::vector<std::string> messages;
+//	/*std::vector<std::string> messages;
 //
 //	messages.push_back("Message 1");
 //	messages.push_back("Message 2");
-//	messages.push_back("Message 3");
+//	messages.push_back("Message 3");*/
 //
 //	//Receiver R1;
-//	Sender S1(messages);
+//
+//
+//	Sender S1("Message 1");
 //	
 //	
 //	//Receiver T2(response);
