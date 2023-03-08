@@ -1,65 +1,57 @@
-//#include<vector>
-//#include<iostream>
-////#include<boost/signals2/signal.hpp>
-//#include<thread>
-//#include<mutex>
-//#include <condition_variable>
-//#include<boost/thread/condition.hpp>
-//
-////using namespace std;
-////
-////std::mutex mtx;
-////std::condition_variable cv;
-////bool received = false;
-////
-////void Receiver(std::string msg);
-//
-//
-//boost::condition& cndSignal;
-//
-//void Sender(std::vector<std::string> messages) {
-//
-//	//std::unique_lock<std::mutex> lck(mtx);
-//
-//	for (int i = 0; i < messages.size(); i++)
-//	{
-//		Receiver(messages[i]);
-//		//	cv.wait(lck);
-//		cndSignal.notify_one();
-//		/*while (!received) {
-//			cout << "\nin while before " << i <<"\n";
-//			cv.wait(lck);
-//			cout << "\nin while after "<< i <<"\n";
-//		}
-//		cout << "\nSignal " << i + 1 << " received from Receiver \n";
-//		received = false;*/
-//	}
-//
-//}
-//
-//void Receiver(std::string msg) {
-//	boost::recursive_mutex::scoped_lock mtxWaitLock(mtx);
-//	cndSignal.wait(mtx);
-//	cout << "\n" << msg << " received to Receiver\n";
-//	//received = true;
-//}
-//
-//int main()
+#include<vector>
+#include<iostream>
+//#include<boost/signals2/signal.hpp>
+#include<thread>
+#include<mutex>
+#include <condition_variable>
+#include<boost/thread/condition.hpp>
+#include<boost/interprocess/sync/scoped_lock.hpp>
+
+//#include <boost/thread/thread.hpp>
+#include <boost/thread/mutex.hpp>
+
+
+boost::mutex mtx;
+boost::condition_variable cndSignal;
+
+
+void f2(int n);
+void f1() {
+	int sum = 0;
+	for (int i = 0; i < 10; i++) {
+		sum = sum + i;
+		std::cout << "\nin f1 for " << i + 1 <<"\n";
+		/*cndSignal.notify_one();
+		f2(sum);*/
+	}
+	cndSignal.notify_one();
+	
+	//std::this_thread::sleep_for(std::chrono::seconds(1));
+
+	std::cout << "\nafter notify \n";
+}
+
+void f2(int num) {
+	
+	int square = 0;
+	boost::mutex::scoped_lock mtxWait(mtx);
+	cndSignal.wait(mtxWait);
+	std::cout << "\nSignal Recieved in f2\n";
+	square = num * num;
+	std::cout << "\nSquare of " << num << " is " << square <<  "\n";
+}
+
+int main() {
+
+	std::thread Thread1(f1);
+	std::thread Thread2(f2,5);
+	Thread1.join();
+	Thread2.join();
+	return 0;
+}
+
+//boost::condition& cndSignal()
 //{
-//	std::vector<std::string> messages;
-//
-//	messages.push_back("Message 1");
-//	messages.push_back("Message 2");
-//	messages.push_back("Message 3");
-//	messages.push_back("Message 4");
-//	messages.push_back("Message 5");
-//	messages.push_back("Message 6");
-//
-//
-//	Sender(messages);
-//
-//
-//
-//	cout << "\n\n";
-//	return 0;
+//	// TODO: insert return statement here
+//	cout << "\ninside cndSignal Return Statement\n";
 //}
