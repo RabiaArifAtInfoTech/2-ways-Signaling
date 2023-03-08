@@ -1,4 +1,4 @@
-
+//.......Solution of Race Condition..........
 #include<iostream>
 #include<boost/thread.hpp>
 #include<boost/chrono.hpp>
@@ -35,7 +35,8 @@ void function2()
 	while (data != 10)
 	{
 		boost::unique_lock<boost::mutex>locker(mu);
-		cond.wait(locker, []() { return !vec.empty(); }); 
+		//cond.wait(locker); //Error: Spurious wakeup call (sometimes)
+		cond.wait(locker, []() { return !vec.empty(); });
 		data = vec.back();
 		vec.pop_back();
 		//locker.unlock();
